@@ -165,6 +165,76 @@ npm run build
 npm start
 ```
 
+### Deploying the Website to Production
+
+The Texas Coin website can be deployed to various hosting platforms. Here are recommended options:
+
+#### Option 1: Vercel (Recommended)
+
+Vercel offers the best integration with Next.js:
+
+1. **Install Vercel CLI**:
+   ```bash
+   npm install -g vercel
+   ```
+
+2. **Deploy from the website directory**:
+   ```bash
+   cd website
+   vercel
+   ```
+
+3. **For production deployment**:
+   ```bash
+   vercel --prod
+   ```
+
+**Environment Variables**: No environment variables are needed for the website as all configuration is client-side.
+
+**Automatic Deployments**: Connect your GitHub repository to Vercel for automatic deployments on push.
+
+#### Option 2: Netlify
+
+1. **Install Netlify CLI**:
+   ```bash
+   npm install -g netlify-cli
+   ```
+
+2. **Build and deploy**:
+   ```bash
+   cd website
+   npm run build
+   netlify deploy --dir=.next --prod
+   ```
+
+#### Option 3: Self-Hosted with Docker
+
+Create a `Dockerfile` in the website directory:
+
+```dockerfile
+FROM node:20-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm install --production
+COPY . .
+RUN npm run build
+EXPOSE 3000
+CMD ["npm", "start"]
+```
+
+Build and run:
+```bash
+docker build -t texas-coin-website .
+docker run -p 3000:3000 texas-coin-website
+```
+
+#### Website Configuration Notes
+
+- The website automatically detects the deployed contract from the `deployment-status.json` file
+- No API keys or secrets are required for the website
+- All Web3 interactions happen client-side through the user's wallet
+- The website works with any Ethereum network (Mainnet, Sepolia, Hardhat local)
+
 ## Smart Contract Details
 
 ### TexasCoin.sol
