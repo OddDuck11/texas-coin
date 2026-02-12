@@ -1,0 +1,18 @@
+node_modules
+.env
+coverage
+coverage.json
+typechain
+typechain-types
+
+# Hardhat files
+cache
+artifacts
+
+# Deployment data
+deployment-status.json
+deployments/
+
+# Next.js build files
+website/.next/
+website/out/
